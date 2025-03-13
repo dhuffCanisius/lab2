@@ -5,28 +5,16 @@ import java.util.stream.Collectors;
 
 public class Task3 {
     public ArrayList<String> removeDuplicates(String inputText) {
-        if (inputText == null || inputText.equals("")){
+        if (inputText == null || inputText.equals("")) {
             return new ArrayList<>();
         }
-        Map<Character, Integer> mp = new HashMap<>();
-        for (int j = 0; j < inputText.length(); j++) {
-            char ch = inputText.charAt(j);
-            if (mp.containsKey(ch)) {
-                int cnt = mp.get(ch);
-                mp.put(ch, ++cnt);
-            } else {
-                mp.put(ch, 1);
-            }
-        }
-        Set<Character> charct = mp.keySet();
 
-        for (Character ch : charct) {
-            int c = mp.get(ch);
-            if (c > 1) {
-                System.out.println(ch + " - " + c);
-            }
+        LinkedHashSet<Character> uniqueChars = new LinkedHashSet<>();
+        for (char ch : inputText.toCharArray()) {
+            uniqueChars.add(ch);
         }
-        return charct.stream().map(Object::toString).collect(Collectors.toCollection(ArrayList::new));
+
+        return uniqueChars.stream().map(Object::toString).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public boolean areTheseAnagrams(String str1, String str2){
